@@ -1,5 +1,7 @@
 package servlet;
 
+import utils.Routes;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,6 @@ public class LogoutServlet extends HttpServlet {
         request.getSession().removeAttribute("password");
         request.getSession().setAttribute("flash_success", "Vous avez été déconnectés");
 
-        response.sendRedirect("/login");
+        response.sendRedirect(Routes.LOGIN);
     }
 }

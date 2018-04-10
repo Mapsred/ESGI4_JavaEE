@@ -15,8 +15,6 @@
         <div class="panel-body">
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/" class="list-group-item">Accueil</a>
-                <a href="${pageContext.request.contextPath}/add" class="list-group-item">Ajouter une visite</a>
-                <a href="${pageContext.request.contextPath}/list" class="list-group-item">Liste des visites</a>
                 <% if (null != request.getSession().getAttribute("username")) { %>
                 <a href="${pageContext.request.contextPath}/logout" class="list-group-item">Déconnexion</a>
                 <% } else { %>

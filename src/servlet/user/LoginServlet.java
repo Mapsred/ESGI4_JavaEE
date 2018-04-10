@@ -1,5 +1,6 @@
-package servlet;
+package servlet.user;
 
+import utils.Routes;
 import utils.QueryBuilder;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/login")
+@WebServlet(Routes.LOGIN)
 public class LoginServlet extends HttpServlet {
     /**
      * @param request  HttpServletRequest
@@ -19,7 +20,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet LoginServlet");
 
-        this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/user/login.jsp").forward(request, response);
     }
 
     /**
@@ -35,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         if (!username.isEmpty() && !password.isEmpty()) {
             if (!QueryBuilder.isUserValid(username, password)) {
                 request.getSession().setAttribute("flash_danger", "Utilisateur non valide");
-                response.sendRedirect("/login");
+                response.sendRedirect(Routes.LOGIN);
 
                 return;
             }
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         request.getSession().setAttribute("flash_danger", "Utilisateur non rempli");
-        response.sendRedirect("/login");
+        response.sendRedirect(Routes.LOGIN);
     }
 
 }
