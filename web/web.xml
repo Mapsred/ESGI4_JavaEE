@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <!-- This is a context init parameter -->
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>test</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>test</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>mysql_hostname</param-name>
+        <param-value>hostname</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_port</param-name>
+        <param-value>3306</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_dbname</param-name>
+        <param-value>esgi_jee</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_username</param-name>
+        <param-value>esgi</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mysql_password</param-name>
+        <param-value>password</param-value>
+    </context-param>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errors/404.jsp</location>
+    </error-page>
+    <!--<error-page>-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/errors/500.jsp</location>-->
+    <!--</error-page>-->
+    <!--<error-page>-->
+        <!--<exception-type>java.lang.Exception</exception-type>-->
+        <!--<location>/errors/500.jsp</location>-->
+    <!--</error-page>-->
+
+</web-app>
