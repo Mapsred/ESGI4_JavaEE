@@ -4,12 +4,13 @@
 <html>
 <head>
     <title>Visites</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Resources/css/style.css">
 </head>
 <body>
 <div class="container">
     <img src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png" alt="esgi" style="max-width: 125px;">
-    <%@include file="flash.jsp" %>
+    <%@include file="parts/flash.jsp" %>
     <h1>Visites !</h1>
     <table class="table">
         <thead>

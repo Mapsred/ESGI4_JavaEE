@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css"/>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css"/>
+    <link rel="stylesheet" href="Resources/css/style.css">
 </head>
 <body>
 <form method="post" class="form">
-    <img src="Resources/images/logo-esgi.png" alt="esgi" style="max-width: 125px;">
     <div class="container">
-        <%@include file="flash.jsp" %>
+        <%@include file="parts/flash.jsp" %>
         <h1>Visite !</h1>
         <div class="form-group">
             <input name="nomEtudiant" type="text" class="form-control" placeholder="nom étudiant">

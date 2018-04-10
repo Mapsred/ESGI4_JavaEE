@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Resources/css/style.css">
 </head>
 <body>
 <div class="container">
     <form method="post" action="${pageContext.request.contextPath}/login" class="form">
         <img src="Resources/images/logo-esgi.png" alt="esgi" style="max-width: 125px;">
-        <%@include file="flash.jsp" %>
+        <%@include file="parts/flash.jsp" %>
         <h1>Connexion !</h1>
         <div class="form-group">
             <input name="username" type="text" class="form-control" placeholder="Username">

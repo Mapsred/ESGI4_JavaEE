@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Resources/css/style.css">
 </head>
 <body>
-<img src="Resources/images/logo-esgi.png" alt="esgi" style="max-width: 125px;">
-<div class="container">
-    <%@include file="flash.jsp" %>
+<%@include file="parts/navbar.jsp" %>
+<main role="main" class="container">
+    <%@include file="parts/flash.jsp" %>
     <h1>Accueil !</h1>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
 </body>
 </html>
