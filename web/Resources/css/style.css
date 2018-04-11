@@ -7,6 +7,37 @@ a img {
     border: 0;
 }
 
+.alert {
+    border: 0;
+    border-radius: 0;
+    padding: 15px;
+    margin-bottom: .5rem;
+}
+
+.alert-success {
+    background-color: #4caf50;
+    border-color: #449d48;
+    color: #fff;
+}
+
+.alert-info {
+    background-color: #03a9f4;
+    border-color: #0391d1;
+    color: #fff;
+}
+
+.alert-warning {
+    background-color: #ff5722;
+    border-color: #ff4409;
+    color: #fff;
+}
+
+.alert-danger {
+    background-color: #f44336;
+    border-color: #f32c1e;
+    color: #fff;
+}
+
 img.android-logo-image {
     max-width: 75px;
     height: auto;
@@ -141,7 +172,7 @@ img.android-logo-image {
     position: relative;
     height: 800px;
     width: auto;
-    background: #f3f3f3 url('../images/slide01.jpg') no-repeat center 30%;
+    background: #f3f3f3;
     background-size: cover;
 }
 

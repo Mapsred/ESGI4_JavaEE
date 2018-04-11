@@ -2,31 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title</title>
     <%@include file="/parts/stylesheets.jsp" %>
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
-        <div class="mdl-layout__header-row">
-          <span class="android-title mdl-layout-title">
-            <img class="android-logo-image" src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png">
-          </span>
-            <!-- Add spacer, to align navigation to the right in desktop -->
-            <div class="android-header-spacer mdl-layout-spacer"></div>
-            <!-- Navigation -->
-            <div class="android-navigation-container">
-                <nav class="android-navigation mdl-navigation">
-                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Phones</a>
-                    <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Tablets</a>
-                </nav>
-            </div>
-            <span class="android-mobile-title mdl-layout-title">
-            <img class="android-logo-image" src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png">
-          </span>
-        </div>
-    </div>
+    <%@include file="/parts/header.jsp" %>
 
     <div class="android-content mdl-layout__content">
         <a name="top"></a>
@@ -37,20 +21,7 @@
             </div>
         </div>
 
-        <footer class="android-footer mdl-mega-footer">
-            <div class="mdl-mega-footer--top-section">
-                <div class="mdl-mega-footer--right-section">
-                    <a class="mdl-typography--font-light" href="#top">
-                        Retour en haut
-                        <i class="material-icons">expand_less</i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="mdl-mega-footer--middle-section">
-                <p class="mdl-typography--font-light">Some features and devices may not be available in all areas</p>
-            </div>
-        </footer>
+        <%@include file="/parts/footer.jsp" %>
     </div>
 </div>
 <%@include file="/parts/scripts.jsp" %>

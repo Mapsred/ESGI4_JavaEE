@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% if (null != request.getSession().getAttribute("flash_success")) { %>
 <div class="alert alert-success">
     <%=request.getSession().getAttribute("flash_success") %>

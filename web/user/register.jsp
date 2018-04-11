@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/style.css">
 </head>
 <body>
-<%@include file="/parts/navbar.jsp" %>
 <main role="main" class="container">
     <form method="post" action="${pageContext.request.contextPath}/register" class="form">
         <%@include file="/parts/flash.jsp" %>
