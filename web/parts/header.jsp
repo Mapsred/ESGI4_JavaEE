@@ -4,8 +4,7 @@
     <div class="mdl-layout__header-row">
           <span class="android-title mdl-layout-title">
               <a href="${pageContext.request.contextPath}/">
-                  <img class="android-logo-image"
-                       src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png">
+                  <img class="android-logo-image" src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png">
               </a>
           </span>
         <!-- Add spacer, to align navigation to the right in desktop -->
@@ -13,6 +12,11 @@
         <!-- Navigation -->
         <div class="android-navigation-container">
             <nav class="android-navigation mdl-navigation">
+                <a href="${pageContext.request.contextPath}/shortener"
+                   class="mdl-navigation__link mdl-typography--text-uppercase">
+                    Réduire une URL
+                </a>
+
                 <% if (null != request.getSession().getAttribute("username")) { %>
                 <a href="${pageContext.request.contextPath}/logout"
                    class="mdl-navigation__link mdl-typography--text-uppercase">
