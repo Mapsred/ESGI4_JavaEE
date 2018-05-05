@@ -34,8 +34,8 @@
 
                             <form action="${pageContext.request.contextPath}/login" method="post">
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                                    <input class="mdl-textfield__input" type="text" id="username" name="username"/>
-                                    <label class="mdl-textfield__label" for="username">Pseudo</label>
+                                    <input class="mdl-textfield__input" type="text" id="email" name="email"/>
+                                    <label class="mdl-textfield__label" for="email">Email</label>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
                                     <input class="mdl-textfield__input" type="password" id="password" name="password"/>
@@ -69,18 +69,3 @@
 
 </body>
 </html>
-
-
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--<title>Connexion</title>--%>
-<%--<%@include file="/parts/stylesheets.jsp" %>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">--%>
-<%--</div>--%>
-<%--<%@include file="/parts/scripts.jsp" %>--%>
-
-<%--</body>--%>
-<%--</html>--%>

@@ -10,10 +10,10 @@ public class Manager {
      * @return boolean
      */
     private static boolean isUserValid(HttpServletRequest request) {
-        String username = String.valueOf(request.getSession().getAttribute("username"));
+        String email = String.valueOf(request.getSession().getAttribute("email"));
         String password = String.valueOf(request.getSession().getAttribute("password"));
 
-        return QueryBuilder.isUserValid(username, password);
+        return QueryBuilder.isUserValid(email, password);
     }
 
     /**

@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("email");
         request.getSession().removeAttribute("password");
         request.getSession().setAttribute("flash_success", "Vous avez été déconnectés");
 

@@ -17,7 +17,7 @@
                     Réduire une URL
                 </a>
 
-                <% if (null != request.getSession().getAttribute("username")) { %>
+                <% if (null != request.getSession().getAttribute("email")) { %>
                 <a href="${pageContext.request.contextPath}/logout"
                    class="mdl-navigation__link mdl-typography--text-uppercase">
                     Déconnexion

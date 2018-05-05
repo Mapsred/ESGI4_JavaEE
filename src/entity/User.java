@@ -1,28 +1,24 @@
 package entity;
 
 public class User {
-    private String username;
+    private String email;
     private String password;
+    private String status;
     private int enabled;
 
     public User() {
 
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String email, String password, String status) {
+        this.email = email;
         this.password = password;
+        this.status = status;
         this.enabled = 1;
     }
 
-    public String getUsername() {
-
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -38,8 +34,7 @@ public class User {
         return enabled;
     }
 
-    public User setEnabled(int enabled) {
-        this.enabled = enabled;
-        return this;
+    public String getStatus() {
+        return status;
     }
 }

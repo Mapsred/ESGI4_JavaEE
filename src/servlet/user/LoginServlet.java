@@ -30,18 +30,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("doPost LoginServlet");
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if (!username.isEmpty() && !password.isEmpty()) {
-            if (!QueryBuilder.isUserValid(username, password)) {
+        if (!email.isEmpty() && !password.isEmpty()) {
+            if (!QueryBuilder.isUserValid(email, password)) {
                 request.getSession().setAttribute("flash_danger", "Utilisateur non valide");
                 response.sendRedirect(Routes.LOGIN);
 
                 return;
             }
             request.getSession().setAttribute("flash_success", "Utilisateur valide");
-            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
             response.sendRedirect("/");

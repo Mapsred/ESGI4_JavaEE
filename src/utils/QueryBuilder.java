@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.Objects;
 
 public class QueryBuilder {
-    public static boolean isUserValid(String username, String password) {
-        String SELECT = "SELECT * FROM `users` WHERE username = ? AND password = ?";
+    public static boolean isUserValid(String email, String password) {
+        String SELECT = "SELECT * FROM `users` WHERE email = ? AND password = ?";
         try {
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
-            query.setString(1, username);
+            query.setString(1, email);
             query.setString(2, password);
 
             ResultSet resultSet = query.executeQuery();
@@ -27,11 +27,11 @@ public class QueryBuilder {
         return false;
     }
 
-    public static boolean isUserExisting(String username) {
-        String SELECT = "SELECT * FROM `users` WHERE username = ?";
+    public static boolean isUserExisting(String email) {
+        String SELECT = "SELECT * FROM `users` WHERE email = ?";
         try {
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
-            query.setString(1, username);
+            query.setString(1, email);
 
             ResultSet resultSet = query.executeQuery();
 
@@ -45,10 +45,12 @@ public class QueryBuilder {
 
     public static void handleUser(User user) {
         try {
-            String INSERT = "INSERT INTO `user` (`base_url`, `new_url`, `created_at`, `deleted_at`) VALUES (?, ?)";
+            String INSERT = "INSERT INTO `user` (`email`, `password`, `pro_status`, `enabled`) VALUES (?, ?)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
-            query.setString(1, user.getUsername());
+            query.setString(1, user.getEmail());
             query.setString(2, user.getPassword());
+            query.setString(3, user.getStatus());
+            query.setInt(4, 1);
             query.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -31,11 +31,12 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("doPost RegisterServlet");
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String password_second = request.getParameter("password_second");
+        String status = request.getParameter("status");
 
-        if (!username.isEmpty() && !password.isEmpty() && !password_second.isEmpty()) {
+        if (!email.isEmpty() && !password.isEmpty() && !password_second.isEmpty()) {
             if (!password.equals(password_second)) {
                 request.getSession().setAttribute("flash_warning", "Les deux mots de passe doivent être identiques");
                 response.sendRedirect(Routes.REGISTER);
@@ -43,17 +44,17 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            if (QueryBuilder.isUserExisting(username)) {
+            if (QueryBuilder.isUserExisting(email)) {
                 request.getSession().setAttribute("flash_warning", "L'utilisateur existe déjà");
                 response.sendRedirect(Routes.REGISTER);
 
                 return;
             }
 
-            User user = new User(username, password);
+            User user = new User(email, password, status);
             QueryBuilder.handleUser(user); // Add the user to the database
             request.getSession().setAttribute("flash_success", "Mail de confirmation envoyé"); //TODO CREATE AND SEND AN EMAIL
-            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
             response.sendRedirect("/");
