@@ -16,6 +16,7 @@
         <a name="top"></a>
         <div class="android-be-together-section">
             <div class="android-card-container mdl-grid">
+                <%@include file="/parts/flash.jsp" %>
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset mdl-card mdl-shadow--3dp">
                     <div class="mdl-card__title">
                         <h4 class="mdl-card__title-text">Raccourcir une URL</h4>
@@ -36,6 +37,10 @@
                                  style="display: none" id="passwordBlock">
                                 <input class="mdl-textfield__input" type="password" name="password" id="password">
                                 <label class="mdl-textfield__label" for="password">Mot de passe</label>
+                            </div>
+
+                            <div>
+                                <a href="${pageContext.request.contextPath}/register">Créer un compte pour voir nos autres options disponibles</a>
                             </div>
                         </div>
                         <div class="mdl-card__actions mdl-typography--text-center">

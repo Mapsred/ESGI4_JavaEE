@@ -16,6 +16,7 @@
         <a name="top"></a>
         <div class="android-be-together-section">
             <div class="android-card-container mdl-grid">
+                <%@include file="/parts/flash.jsp" %>
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset mdl-card mdl-shadow--3dp">
                     <div class="mdl-card__title">
                         <h4 class="mdl-card__title-text">URL raccourcie</h4>
@@ -37,6 +38,9 @@
                                 </a>
                             </p>
                         <%} %>
+                        <div>
+                            <a href="${pageContext.request.contextPath}/register">Créer un compte pour voir nos autres options disponibles</a>
+                        </div>
                     </div>
                 </div>
 
