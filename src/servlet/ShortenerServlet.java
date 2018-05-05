@@ -19,7 +19,6 @@ public class ShortenerServlet extends HttpServlet {
         System.out.println("doGet ShortenerServlet");
 
         this.getServletContext().getRequestDispatcher("/shortener.jsp").forward(request, response);
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,12 +38,17 @@ public class ShortenerServlet extends HttpServlet {
             try {
                 ResultSet lastURL = QueryBuilder.getLastURLResultSet();
                 String short_url = Objects.requireNonNull(lastURL).getString(2);
-                request.getSession().setAttribute("flash_success", "URL raccourcie : " + short_url);
+                if (!password.isEmpty()) {
+                    short_url += "?password=" + password;
+                }
+                request.getSession().setAttribute("short_url", short_url);
+
+                request.getSession().setAttribute("flash_success", "URL raccourcie");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            response.sendRedirect("/");
+            response.sendRedirect(Routes.SHORTENER_RESULT);
 
             return;
         }
