@@ -56,10 +56,4 @@ public class ShortenerServlet extends HttpServlet {
         request.getSession().setAttribute("flash_danger", "URL non remplie");
         response.sendRedirect("/");
     }
-
-    private String getShortenedUrl(HttpServletRequest request) {
-        String[] splitted = request.getRequestURL().toString().split("/");
-
-        return splitted[splitted.length - 1];
-    }
 }
