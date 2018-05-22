@@ -7,6 +7,10 @@ a img {
     border: 0;
 }
 
+.footerlink{
+    text-align: center;
+}
+
 .alert {
     border: 0;
     border-radius: 0;
@@ -40,6 +44,11 @@ a img {
 
 img.android-logo-image {
     max-width: 75px;
+    height: auto;
+}
+
+pub-image {
+    max-width: 800px;
     height: auto;
 }
 

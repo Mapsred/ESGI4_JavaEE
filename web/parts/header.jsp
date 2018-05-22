@@ -7,11 +7,29 @@
                   <img class="android-logo-image" src="${pageContext.request.contextPath}/Resources/images/logo-esgi.png">
               </a>
           </span>
+        <div class="android-header-spacer mdl-layout-spacer"></div>
+            <span>
+                <a href="${pageContext.request.contextPath}/">
+                    <img class="pub-image" src="${pageContext.request.contextPath}/Resources/images/bannierepub.jpg">
+                </a>
+            </span>
         <!-- Add spacer, to align navigation to the right in desktop -->
         <div class="android-header-spacer mdl-layout-spacer"></div>
         <!-- Navigation -->
         <div class="android-navigation-container">
             <nav class="android-navigation mdl-navigation">
+
+                <a href="${pageContext.request.contextPath}/"
+                   class="mdl-navigation__link mdl-typography--text-uppercase">
+                    Accueil
+                </a>
+
+                <a href="${pageContext.request.contextPath}/presentation"
+                   class="mdl-navigation__link mdl-typography--text-uppercase">
+                    Présentation
+                </a>
+
+
                 <a href="${pageContext.request.contextPath}/shortener"
                    class="mdl-navigation__link mdl-typography--text-uppercase">
                     Réduire une URL
