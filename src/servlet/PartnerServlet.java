@@ -1,5 +1,7 @@
 package servlet;
 
+import utils.Routes;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/partner")
+@WebServlet(name = "PartnerServlet", urlPatterns = Routes.PARTNER)
 public class PartnerServlet extends HttpServlet {
     /**
      * @param request  HttpServletRequest
