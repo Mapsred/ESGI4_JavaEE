@@ -1,5 +1,5 @@
-hostname="localhost"
+hostname=localhost
 port=3306
-dbname="esgi-jee"
-username="esgi"
-password=""
+dbname=esgi-jee
+username=esgi
+password=
