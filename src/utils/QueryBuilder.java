@@ -180,7 +180,7 @@ public class QueryBuilder {
         ResultSet resultSet = Objects.requireNonNull(QueryBuilder.findOneById(SELECT, url_complex_id));
 
         try {
-            return new UrlPassOption(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+            return new UrlPassOption(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5));
         } catch (SQLException e) {
             e.printStackTrace();
         }
