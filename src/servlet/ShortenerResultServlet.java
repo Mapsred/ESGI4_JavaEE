@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(Routes.SHORTENER_RESULT)
+@WebServlet(name = "ShortenerResultServlet", urlPatterns = Routes.SHORTENER_RESULT)
 public class ShortenerResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet ShortenerResultServlet");

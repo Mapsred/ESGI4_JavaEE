@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(Routes.REGISTER)
+@WebServlet(name = "RegisterServlet", urlPatterns = Routes.REGISTER)
 public class RegisterServlet extends HttpServlet {
     /**
      * @param request  HttpServletRequest
