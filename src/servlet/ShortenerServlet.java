@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-@WebServlet(Routes.SHORTENER)
+@WebServlet(name = "ShortenerServlet", urlPatterns = Routes.SHORTENER)
 public class ShortenerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet ShortenerServlet");
@@ -55,5 +55,11 @@ public class ShortenerServlet extends HttpServlet {
 
         request.getSession().setAttribute("flash_danger", "URL non remplie");
         response.sendRedirect("/");
+    }
+
+    private String getShortenedUrl(HttpServletRequest request) {
+        String[] splitted = request.getRequestURL().toString().split("/");
+
+        return splitted[splitted.length - 1];
     }
 }

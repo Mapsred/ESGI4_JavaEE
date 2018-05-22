@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(Routes.LOGIN)
+@WebServlet(name = "LoginServlet", urlPatterns = Routes.LOGIN)
 public class LoginServlet extends HttpServlet {
     /**
      * @param request  HttpServletRequest
