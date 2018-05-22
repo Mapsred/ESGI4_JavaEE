@@ -1,4 +1,4 @@
-package servlet;
+package servlet.shortener;
 
 import entity.ComplexUrl;
 import entity.Url;
@@ -38,7 +38,8 @@ public class ShortenerVisitServlet extends HttpServlet {
         if (QueryBuilder.isPasswordProtected(url.getId())) {
             request.setAttribute("password", QueryBuilder.getPassword(url.getId()));
 
-            this.getServletContext().getRequestDispatcher("/shortener_visit.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
+
             return;
         }
 
@@ -47,14 +48,22 @@ public class ShortenerVisitServlet extends HttpServlet {
             if (QueryBuilder.isUrlPassOption(complexUrl.getId())) {
                 UrlPassOption urlPassOption = QueryBuilder.getUrlPassOptions(complexUrl.getId());
                 request.setAttribute("url_pass_option", true);
+
+                //TODO Handle limit date (from => to)
+                //TODO Handle max click (see SQL url_stat)
+                //TODO Handle available_until (SQL url_pass_option may need some tweeks)
             }
 
-            this.getServletContext().getRequestDispatcher("/shortener_visit.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
+
             return;
         }
 
 
-        //TODO Fetch complex_url / if defined fetch url_pass_option
+        //TODO Create template content with captcha (google recaptcha) or password
+
+        //TODO Add an SQL entry to url_stat
+
         response.sendRedirect(url.getBaseUrl());
     }
 
@@ -64,4 +73,8 @@ public class ShortenerVisitServlet extends HttpServlet {
         return splitted[splitted.length - 1];
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
 }

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.shortener;
 
 import utils.Routes;
 
@@ -31,6 +31,6 @@ public class ShortenerResultServlet extends HttpServlet {
         request.setAttribute("short_url", parts[0]);
         request.setAttribute("full_url", shortUrl.toString());
 
-        this.getServletContext().getRequestDispatcher("/shortener_result.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/shortener/shortener_result.jsp").forward(request, response);
     }
 }
