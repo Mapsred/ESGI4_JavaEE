@@ -190,6 +190,42 @@ public class QueryBuilder {
     }
 
 
+    public static void addUrlStat(int url_id, String ip) {
+        try {
+            String INSERT = "INSERT INTO `url_stat` (`url_id`, `date`, `ip`) VALUES (?, ?, ?)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+
+            query.setInt(1, url_id);
+            query.setString(2, format.format(calendar.getTime()));
+            query.setString(3, ip);
+
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int getUrlStatClick(int url_id) {
+        String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ?";
+        try {
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setInt(1, url_id);
+            ResultSet resultSet = query.executeQuery();
+
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+
     private static boolean isEntryExisting(String SELECT, String parameter) {
         try {
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);

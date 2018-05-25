@@ -1,6 +1,7 @@
 package utils;
 
 public interface Routes {
+    String ACCOUNT = "/account";
     String CGV = "/cgv";
     String REGISTER = "/register";
     String LEGALNOTICE = "/legalnotice";

@@ -3,6 +3,7 @@ package servlet.shortener;
 import entity.ComplexUrl;
 import entity.Url;
 import entity.UrlPassOption;
+import utils.Manager;
 import utils.QueryBuilder;
 import utils.Routes;
 
@@ -21,21 +22,20 @@ public class ShortenerVisitServlet extends HttpServlet {
         String short_url = getShortenedUrl(request);
 
         if (!QueryBuilder.isUrlExisting(short_url)) {
-            request.getSession().setAttribute("flash_danger", "URL n'existe pas");
-            response.sendRedirect("/");
+            this.invalid(request, response, "URL n'existe pas");
+
+            return;
         }
 
         Url url = Objects.requireNonNull(QueryBuilder.findUrl(short_url));
-        System.out.println(url.toString());
-
         if (url.isExpired()) {
-            request.getSession().setAttribute("flash_danger", "URL n'est plus valide");
-            response.sendRedirect("/");
+            this.invalid(request, response);
 
             return;
         }
 
         if (QueryBuilder.isPasswordProtected(url.getId())) {
+            System.out.println("HasPassword");
             request.setAttribute("password", QueryBuilder.getPassword(url.getId()));
 
             this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
@@ -46,23 +46,37 @@ public class ShortenerVisitServlet extends HttpServlet {
         if (QueryBuilder.isComplexUrl(url.getId())) {
             ComplexUrl complexUrl = Objects.requireNonNull(QueryBuilder.getComplexUrl(url.getId()));
             if (QueryBuilder.isUrlPassOption(complexUrl.getId())) {
-                UrlPassOption urlPassOption = QueryBuilder.getUrlPassOptions(complexUrl.getId());
+                UrlPassOption urlPassOption = Objects.requireNonNull(QueryBuilder.getUrlPassOptions(complexUrl.getId()));
                 request.setAttribute("url_pass_option", true);
 
-                //TODO Handle limit date (from => to)
-                //TODO Handle max click (see SQL url_stat)
-                //TODO Handle available_until (SQL url_pass_option may need some tweeks)
+                // Handle limit date (from => to) | Handle available_until
+                if (!urlPassOption.isEnabled()) {
+                    this.invalid(request, response);
+
+                    return;
+                }
+
+                // Handle max click (see SQL url_stat)
+                if (urlPassOption.isMaxClick(QueryBuilder.getUrlStatClick(url.getId()))) {
+                    this.invalid(request, response, "Max click for this url");
+
+                    return;
+                }
+
+                if (urlPassOption.getLibelle().equals("captcha") || urlPassOption.getLibelle().equals("password")) {
+                    if (urlPassOption.getLibelle().equals("password")) {
+                        System.out.println("HasPassword");
+                        request.setAttribute("password", QueryBuilder.getPassword(url.getId()));
+                    }
+
+                    this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
+
+                    return;
+                }
             }
-
-            this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
-
-            return;
         }
 
-
-        //TODO Create template content with captcha (google recaptcha) or password
-
-        //TODO Add an SQL entry to url_stat
+        QueryBuilder.addUrlStat(url.getId(), Manager.getClientIpAddr(request));
 
         response.sendRedirect(url.getBaseUrl());
     }
@@ -77,4 +91,15 @@ public class ShortenerVisitServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
+
+    private void invalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        invalid(request, response, "URL n'est plus valide");
+    }
+
+    private void invalid(HttpServletRequest request, HttpServletResponse response, String message) throws IOException {
+        request.getSession().setAttribute("flash_danger", message);
+        response.sendRedirect("/");
+    }
+
+
 }

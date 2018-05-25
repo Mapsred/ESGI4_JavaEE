@@ -10,18 +10,18 @@ public class Url {
     private String base_url;
     private String new_url;
     private String created_at;
-    private String updated_at;
+    private String deleted_at;
 
     public Url() {
 
     }
 
-    public Url(int id, String base_url, String new_url, String created_at, String updated_at) {
+    public Url(int id, String base_url, String new_url, String created_at, String deleted_at) {
         this.id = id;
         this.base_url = base_url;
         this.new_url = new_url;
         this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
     }
 
     public int getId() {
@@ -40,8 +40,8 @@ public class Url {
         return created_at;
     }
     
-    private String getUpdatedAt() {
-        return updated_at;
+    private String getDeletedAt() {
+        return deleted_at;
     }
 
     public boolean isExpired() {
@@ -50,7 +50,7 @@ public class Url {
         actual.setTime(new Date());
 
         Calendar calendar = Calendar.getInstance();
-        String date = this.getCreatedAt().split(" ")[0];
+        String date = this.getDeletedAt().split(" ")[0];
 
         try {
             calendar.setTime(format.parse(date));
@@ -63,6 +63,6 @@ public class Url {
 
     @Override
     public String toString() {
-        return "base_url="+this.getBaseUrl()+"/new_url="+this.getNewUrl()+"/created_at="+this.getCreatedAt()+"/updated_at="+this.getUpdatedAt();
+        return "base_url="+this.getBaseUrl()+"/new_url="+this.getNewUrl()+"/created_at="+this.getCreatedAt()+"/deleted_at="+this.getDeletedAt();
     }
 }

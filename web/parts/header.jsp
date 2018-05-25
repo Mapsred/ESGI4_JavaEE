@@ -36,6 +36,10 @@
                 </a>
 
                 <% if (null != request.getSession().getAttribute("email")) { %>
+                <a href="${pageContext.request.contextPath}/account"
+                   class="mdl-navigation__link mdl-typography--text-uppercase">
+                    Mon compte
+                </a>
                 <a href="${pageContext.request.contextPath}/logout"
                    class="mdl-navigation__link mdl-typography--text-uppercase">
                     Déconnexion
