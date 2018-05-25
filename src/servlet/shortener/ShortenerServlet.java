@@ -1,4 +1,4 @@
-package servlet;
+package servlet.shortener;
 
 import utils.QueryBuilder;
 import utils.Routes;
@@ -18,7 +18,7 @@ public class ShortenerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet ShortenerServlet");
 
-        this.getServletContext().getRequestDispatcher("/shortener.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/shortener/shortener.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -55,11 +55,5 @@ public class ShortenerServlet extends HttpServlet {
 
         request.getSession().setAttribute("flash_danger", "URL non remplie");
         response.sendRedirect("/");
-    }
-
-    private String getShortenedUrl(HttpServletRequest request) {
-        String[] splitted = request.getRequestURL().toString().split("/");
-
-        return splitted[splitted.length - 1];
     }
 }
