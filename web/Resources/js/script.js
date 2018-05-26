@@ -78,4 +78,8 @@ var ShortenerForm = {
 $(document).ready(function () {
     ShortenerForm.init();
 
+    if (document.getElementById("linkTable")) {
+        $('#linkTable').DataTable();
+    }
+
 });

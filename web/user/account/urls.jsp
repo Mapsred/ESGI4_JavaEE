@@ -1,3 +1,5 @@
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,6 +24,33 @@
                     <div class="mdl-card__title">
                         <h4 class="mdl-card__title-text">Mes urls</h4>
                     </div>
+                    <table id="linkTable">
+                        <thead>
+                        <tr>
+                            <th>URLs Breizhlink</th>
+                            <th>Vos URL Breizhlink</th>
+                            <th>Date de création</th>
+                            <th>Stats</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% if (null != request.getAttribute("links")) {
+                            try {
+                                ResultSet visits = (ResultSet) request.getAttribute("links");
+                                while (visits.next()) {
+                                    out.print("<tr>");
+                                    out.print("<td>" + visits.getString(2) + "</td>");
+                                    out.print("<td>" + visits.getString(3) + "</td>");
+                                    out.print("<td>" + visits.getString(4) + "</td>");
+                                    out.print("<td><a href='#'>Test</a></td>");
+                                    out.print("</tr>");
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }%>
+                        </tbody>
+                    </table>
                     <div class="mdl-card__supporting-text">
 
                     </div>
