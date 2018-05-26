@@ -20,17 +20,20 @@
 
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset mdl-card mdl-shadow--3dp">
                     <div class="mdl-card__title">
-                        <h4 class="mdl-card__title-text">Breizhlink</h4>
+                        <h4 class="mdl-card__title-text">Mon compte</h4>
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <span class="mdl-typography--font-light mdl-typography--subhead">
-                            Bienvenue sur Breizhlink.
-                        </span>
-                    </div>
-                    <div class="mdl-card__actions">
                         <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase"
-                           href="${pageContext.request.contextPath}/shortener">
-                            Raccourcir une URL
+                           href="${pageContext.request.contextPath}/user/account/profile">
+                            Informations personnelles
+                        </a>
+                        <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase"
+                           href="${pageContext.request.contextPath}/user/account/change_password">
+                            Changer mon mot de passe
+                        </a>
+                        <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase"
+                           href="${pageContext.request.contextPath}/user/account/urls">
+                            Mes URLS
                         </a>
                     </div>
                 </div>

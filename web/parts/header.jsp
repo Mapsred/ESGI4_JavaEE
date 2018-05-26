@@ -36,7 +36,7 @@
                 </a>
 
                 <% if (null != request.getSession().getAttribute("email")) { %>
-                <a href="${pageContext.request.contextPath}/account"
+                <a href="${pageContext.request.contextPath}/user/account"
                    class="mdl-navigation__link mdl-typography--text-uppercase">
                     Mon compte
                 </a>
