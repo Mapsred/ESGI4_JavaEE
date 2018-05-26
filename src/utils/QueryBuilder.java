@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -123,6 +124,24 @@ public class QueryBuilder {
         }
 
         return null;
+    }
+
+    public static ResultSet findUserUrls(String user_email) {
+        try {
+            String SELECT = "SELECT simple_url.* FROM `complex_url` " +
+                    "LEFT JOIN simple_url ON complex_url.simple_id = simple_url.id " +
+                    "LEFT JOIN users ON complex_url.user_id = users.id " +
+                    "WHERE users.email = ?";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setString(1, user_email);
+
+            return query.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 
 

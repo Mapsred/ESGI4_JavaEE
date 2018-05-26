@@ -1,5 +1,6 @@
 package servlet.user.account;
 
+import utils.Manager;
 import utils.Routes;
 
 import javax.servlet.ServletException;
@@ -12,9 +13,13 @@ import java.io.IOException;
 @WebServlet(name = "AccountServlet", urlPatterns = Routes.USER_ACCOUNT)
 public class AccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!Manager.isUserValid(request, response)) {
+            return;
+        }
+
         System.out.println("doGet AccountServlet");
 
-        this.getServletContext().getRequestDispatcher("/user/account.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/user/account/account.jsp").forward(request, response);
 
     }
 

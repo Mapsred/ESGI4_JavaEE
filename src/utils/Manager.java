@@ -22,14 +22,14 @@ public class Manager {
      * @throws IOException from HttpServletRequest::sendRedirect
      */
     public static boolean isUserValid(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (Manager.isUserValid(request)) {
+        if (!Manager.isUserValid(request)) {
             request.getSession().setAttribute("flash_danger", "Vous devez être connectés");
             response.sendRedirect("/login");
 
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public static String getClientIpAddr(HttpServletRequest request) {
