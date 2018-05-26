@@ -1,75 +1,81 @@
-$(document).ready(function () {
+var ShortenerForm = {
+    checkBoxSelector: ['secured', 'captcha', 'click', 'daterange', 'datemax'],
 
-    var checkBoxSelector = ['secured', 'captcha', 'click', 'daterange', 'datemax'];
+    init: function () {
+        $('#secured').on('click', function () {
+            if ($(this).is(':checked')) {
+                $('#passwordBlock').show();
+                ShortenerForm.disableCheck("secured");
+            }
+            else {
+                $('#passwordBlock').hide();
+                ShortenerForm.enableCheck();
+            }
+        });
 
-    function disableCheck(object){
-        for (var i = 0; i < checkBoxSelector.length; i++) {
-            if(checkBoxSelector[i] !== object){
-                $("#"+checkBoxSelector[i]).attr("disabled", true);
+        $('#captcha').on('click', function () {
+            if ($(this).is(':checked')) {
+                ShortenerForm.disableCheck("captcha");
+                $("#captcha").removeAttr("disabled");
+            }
+            else {
+                ShortenerForm.enableCheck();
+            }
+        });
+        $('#click').on('click', function () {
+            if ($(this).is(':checked')) {
+                $('#clickBlock').show();
+                ShortenerForm.disableCheck("click");
+                $("#click").removeAttr("disabled");
+            }
+            else {
+                $('#clickBlock').hide();
+                ShortenerForm.enableCheck();
+            }
+        });
+        $('#daterange').on('click', function () {
+            if ($(this).is(':checked')) {
+                $('#dateDebutBlock').show();
+                $('#dateFinBlock').show();
+                ShortenerForm.disableCheck("daterange");
+                $("#daterange").removeAttr("disabled");
+            }
+            else {
+                $('#dateDebutBlock').hide();
+                $('#dateFinBlock').hide();
+                ShortenerForm.enableCheck();
+            }
+        });
+        $('#datemax').on('click', function () {
+            if ($(this).is(':checked')) {
+                $('#dateMaxBlock').show();
+                ShortenerForm.disableCheck("datemax");
+                $("#datemax").removeAttr("disabled");
+            }
+            else {
+                $('#dateMaxBlock').hide();
+                ShortenerForm.enableCheck();
+            }
+        });
+
+    },
+
+    disableCheck: function (object) {
+        for (var i = 0; i < ShortenerForm.checkBoxSelector.length; i++) {
+            if (ShortenerForm.checkBoxSelector[i] !== object) {
+                $("#" + ShortenerForm.checkBoxSelector[i]).attr("disabled", true);
             }
         }
-    }
+    },
 
-    function enableCheck(){
-        for (var i = 0; i < checkBoxSelector.length; i++) {
-            $("#"+checkBoxSelector[i]).removeAttr("disabled");
+    enableCheck: function () {
+        for (var i = 0; i < ShortenerForm.checkBoxSelector.length; i++) {
+            $("#" + ShortenerForm.checkBoxSelector[i]).removeAttr("disabled");
         }
     }
-    
-    $('#secured').on('click', function () {
-        if($(this).is(':checked')){
-            $('#passwordBlock').show();
-            disableCheck("secured");
-        }
-        else{
-            $('#passwordBlock').hide();
-            enableCheck();
-        }
-    });
+};
 
-    $('#captcha').on('click', function () {
-        if($(this).is(':checked')) {
-            disableCheck("captcha");
-            $("#captcha").removeAttr("disabled");
-        }
-        else{
-            enableCheck();
-        }
-    });
-    $('#click').on('click', function () {
-        if($(this).is(':checked')) {
-            $('#clickBlock').show();
-            disableCheck("click");
-            $("#click").removeAttr("disabled");
-        }
-        else{
-            $('#clickBlock').hide();
-            enableCheck();
-        }
-    });
-    $('#daterange').on('click', function () {
-        if($(this).is(':checked')) {
-            $('#dateDebutBlock').show();
-            $('#dateFinBlock').show();
-            disableCheck("daterange");
-            $("#daterange").removeAttr("disabled");
-        }
-        else{
-            $('#dateDebutBlock').hide();
-            $('#dateFinBlock').hide();
-            enableCheck();
-        }
-    });
-    $('#datemax').on('click', function () {
-        if($(this).is(':checked')) {
-            $('#dateMaxBlock').show();
-            disableCheck("datemax");
-            $("#datemax").removeAttr("disabled");
-        }
-        else{
-            $('#dateMaxBlock').hide();
-            enableCheck();
-        }
-    });
+$(document).ready(function () {
+    ShortenerForm.init();
 
 });
