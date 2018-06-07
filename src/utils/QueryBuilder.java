@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -229,11 +228,33 @@ public class QueryBuilder {
     }
 
 
-    public static int getUrlStatClick(int url_id) {
+    public static ResultSet getUrlStatClick(int url_id) {
         String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ?";
         try {
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
             query.setInt(1, url_id);
+
+            return query.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static int getUrlStatClickMax15(int url_id) {
+        String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ? AND date > ?";
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.setTime(new Date());
+            calendar.add(Calendar.DATE, -15);
+
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setInt(1, url_id);
+            query.setString(2, format.format(calendar.getTime()));
+
             ResultSet resultSet = query.executeQuery();
 
             return resultSet.getInt(1);
