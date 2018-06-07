@@ -5,6 +5,7 @@ public interface Routes {
     String USER_ACCOUNT_PROFILE = "/user/account/profile";
     String USER_ACCOUNT_CHANGE_PASSWORD = "/user/account/change_password";
     String USER_ACCOUNT_URLS = "/user/account/urls";
+    String USER_ACCOUNT_STATS = "/user/account/stats/*";
 
     String CGV = "/cgv";
     String REGISTER = "/register";

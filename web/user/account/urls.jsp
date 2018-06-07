@@ -42,7 +42,7 @@
                                     out.print("<td>" + visits.getString(2) + "</td>");
                                     out.print("<td>" + visits.getString(3) + "</td>");
                                     out.print("<td>" + visits.getString(4) + "</td>");
-                                    out.print("<td><a href='#'>Test</a></td>");
+                                    out.print("<td><a href='/user/account/stats/"+visits.getString(1)+"'>Test</a></td>");
                                     out.print("</tr>");
                                 }
                             } catch (SQLException e) {
