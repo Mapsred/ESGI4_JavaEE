@@ -19,13 +19,16 @@
         <div class="android-be-together-section mdl-typography--text-center">
             <div class="android-card-container mdl-grid">
                 <%@include file="/parts/flash.jsp" %>
+                <i id="highcharts-data" data-dates='<%= request.getAttribute("stats") %>'></i>
 
                 <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset mdl-card mdl-shadow--3dp">
                     <div class="mdl-card__title">
-                        <h4 class="mdl-card__title-text" id="here">Mes visites en 15 jours</h4>
+                        <h4 class="mdl-card__title-text">
+                            Mes visites en 15 jours pour l'URL n <%= request.getAttribute("id") %>
+                        </h4>
                     </div>
                     <div class="mdl-card__supporting-text">
-
+                        <div id="highchart"></div>
                     </div>
                 </div>
 

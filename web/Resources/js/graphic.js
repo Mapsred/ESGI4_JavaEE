@@ -83,10 +83,9 @@ var graphic = {
     }
 };
 
-
 $(document).ready(function () {
-    var titles = [{title: 'Mes visites depuis 15 jours'}, {yAxis: 'Nombre de visites'}, {name: 'URL visitée'}];
-    console.log(titles);
-    // graphic.graphicCreate(data['date'], data['specific'], titles);
+    var titles = [{title: 'Mes visites depuis 15 jours'}, {yAxis: 'Nombre de visites'}, {name: 'Nombre de visites'}];
+    var data = $("#highcharts-data").data("dates");
 
+    graphic.graphicCreate(data['dates'], data['specific'], titles);
 });
