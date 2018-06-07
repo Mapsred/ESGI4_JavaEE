@@ -220,6 +220,15 @@ public class QueryBuilder {
         return null;
     }
 
+    public static int countComplexUrl(String user_email) {
+        String SELECT = "SELECT COUNT(*) FROM `complex_url`" +
+                "LEFT JOIN users ON complex_url.user_id = users.id " +
+                "WHERE users.email = ?";
+
+
+        return QueryBuilder.count(SELECT, user_email);
+    }
+
 
     public static boolean isUrlPassOption(int url_complex_id) {
         String SELECT = "SELECT * FROM `url_pass_option` WHERE url_complex_id = ?";
@@ -265,18 +274,8 @@ public class QueryBuilder {
 
     public static int getUrlStatClick(int url_id) {
         String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ?";
-        try {
-            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
-            query.setInt(1, url_id);
 
-            ResultSet resultSet = query.executeQuery();
-
-            return resultSet.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
+        return QueryBuilder.count(SELECT, url_id);
     }
 
     public static ResultSet getUrlStatClickMaxOf15(int url_id) {
@@ -336,5 +335,44 @@ public class QueryBuilder {
         resultSet.first();
 
         return resultSet;
+    }
+
+
+    private static int count(String SELECT, int parameter) {
+        try {
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setInt(1, parameter);
+
+            return QueryBuilder.count(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    private static int count(String SELECT, String parameter) {
+        try {
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setString(1, parameter);
+
+            return QueryBuilder.count(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    private static int count(PreparedStatement query) {
+        try {
+            ResultSet resultSet = query.executeQuery();
+
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
