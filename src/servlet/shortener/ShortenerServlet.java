@@ -26,12 +26,31 @@ public class ShortenerServlet extends HttpServlet {
         String url = request.getParameter("url");
 
         if (!url.isEmpty()) {
+
             String secured = request.getParameter("secured");
             String password = request.getParameter("password");
 
+            String captcha = request.getParameter("captcha");
+            String click = request.getParameter("click");
+            String daterange = request.getParameter("daterange");
+            String datemax = request.getParameter("datemax");
+
             if (secured != null && !password.isEmpty()) {
                 QueryBuilder.addURL(url, password);
-            } else {
+            }
+            else if(captcha != null){
+                QueryBuilder.addComplexURL(url);
+            }
+            else if(click != null){
+                QueryBuilder.ComplexUrlData(url, "click");
+            }
+            else if(daterange != null){
+                QueryBuilder.ComplexUrlData(url, "daterange");
+            }
+            else if(datemax != null){
+                QueryBuilder.ComplexUrlData(url, "datemax");
+            }
+            else{
                 QueryBuilder.addURL(url);
             }
 

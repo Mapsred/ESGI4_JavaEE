@@ -103,6 +103,41 @@ public class QueryBuilder {
 
     }
 
+    public static void addComplexURL(String url) {
+        try {
+
+            QueryBuilder.addURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `complex_url` (`id`, `simple_id`, `user_id`) VALUES (NULL, ?, 1)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlData(String url, String complexUrl) {
+        try {
+            QueryBuilder.addComplexURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
     public static boolean isUrlExisting(String short_url) {
         String SELECT = "SELECT * FROM `simple_url` WHERE new_url = ?";
