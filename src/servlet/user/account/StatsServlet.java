@@ -21,12 +21,10 @@ public class StatsServlet extends HttpServlet {
 
         System.out.println("doGet StatsServlet");
         String id = getID(request);
-        ResultSet resultSet = QueryBuilder.getUrlStatClick(Integer.parseInt(id));
+        ResultSet resultSet = QueryBuilder.getUrlStatClickMaxOf15(Integer.parseInt(id));
         request.setAttribute("stats", resultSet);
-    }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        this.getServletContext().getRequestDispatcher("/user/account/stats.jsp").forward(request, response);
     }
 
     private String getID(HttpServletRequest request) {

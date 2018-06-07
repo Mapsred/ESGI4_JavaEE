@@ -228,22 +228,25 @@ public class QueryBuilder {
     }
 
 
-    public static ResultSet getUrlStatClick(int url_id) {
+    public static int getUrlStatClick(int url_id) {
         String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ?";
         try {
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
             query.setInt(1, url_id);
 
-            return query.executeQuery();
+            ResultSet resultSet = query.executeQuery();
+
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
-    public static int getUrlStatClickMax15(int url_id) {
-        String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ? AND date > ?";
+    public static ResultSet getUrlStatClickMaxOf15(int url_id) {
+        String SELECT = "SELECT DATE_FORMAT(date, '%Y-%m-%d') date_formated, COUNT(*) nb " +
+                "FROM url_stat WHERE url_id = ? AND date > ? GROUP BY date_formated";
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -255,14 +258,12 @@ public class QueryBuilder {
             query.setInt(1, url_id);
             query.setString(2, format.format(calendar.getTime()));
 
-            ResultSet resultSet = query.executeQuery();
-
-            return resultSet.getInt(1);
+            return query.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return 0;
+        return null;
     }
 
 
