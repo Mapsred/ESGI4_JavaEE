@@ -137,7 +137,66 @@ public class QueryBuilder {
 
     }
 
+    public static void ComplexUrlDateRange(String url, String complexUrl, String startdate, String enddate) {
+        try {
+            QueryBuilder.addComplexURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
 
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, ?, ?, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, enddate);
+            query.setString(3, startdate);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlDateMax(String url, String complexUrl, String maxdate) {
+        try {
+            QueryBuilder.addComplexURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.setTime(new Date());
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, ?, ?, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, format.format(calendar.getTime()));
+            query.setString(4, maxdate);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlClick(String url, String complexUrl, String maxclick) {
+        try {
+            QueryBuilder.addComplexURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, ?)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, maxclick);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static boolean isUrlExisting(String short_url) {
         String SELECT = "SELECT * FROM `simple_url` WHERE new_url = ?";

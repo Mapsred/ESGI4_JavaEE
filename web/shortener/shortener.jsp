@@ -60,8 +60,8 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="clickBlock">
-                                    <input class="mdl-textfield__input" type="password" name="password" id="password">
-                                    <label class="mdl-textfield__label" for="password">Nombre de clique max</label>
+                                    <input class="mdl-textfield__input" type="nbclick" name="nbclick" id="nbclick">
+                                    <label class="mdl-textfield__label" for="nbclick">Nombre de clique max</label>
                                 </div>
 
                                 <!-- DATE RANGE -->
@@ -73,13 +73,13 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateDebutBlock">
-                                    <input class="mdl-textfield__input" type="password" name="password" id="password">
-                                    <label class="mdl-textfield__label" for="password">Date debut</label>
+                                    <input class="mdl-textfield__input" type="startdate" name="startdate" id="startdate">
+                                    <label class="mdl-textfield__label" for="startdate">Date debut</label>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateFinBlock">
-                                    <input class="mdl-textfield__input" type="password" name="password" id="password">
-                                    <label class="mdl-textfield__label" for="password">Date fin</label>
+                                    <input class="mdl-textfield__input" type="enddate" name="enddate" id="enddate">
+                                    <label class="mdl-textfield__label" for="enddate">Date fin</label>
                                 </div>
 
                                 <!-- DATE MAX -->
@@ -91,8 +91,8 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateMaxBlock">
-                                    <input class="mdl-textfield__input" type="password" name="password" id="password">
-                                    <label class="mdl-textfield__label" for="password">Date max</label>
+                                    <input class="mdl-textfield__input" type="maxdate" name="maxdate" id="maxdate">
+                                    <label class="mdl-textfield__label" for="maxdate">Date max</label>
                                 </div>
 
 

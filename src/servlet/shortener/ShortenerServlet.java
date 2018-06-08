@@ -32,23 +32,27 @@ public class ShortenerServlet extends HttpServlet {
 
             String captcha = request.getParameter("captcha");
             String click = request.getParameter("click");
+            String nbclick = request.getParameter("nbclick");
             String daterange = request.getParameter("daterange");
+            String startdate = request.getParameter("startdate");
+            String enddate = request.getParameter("enddate");
             String datemax = request.getParameter("datemax");
+            String maxdate = request.getParameter("maxdate");
 
             if (secured != null && !password.isEmpty()) {
                 QueryBuilder.addURL(url, password);
             }
             else if(captcha != null){
-                QueryBuilder.addComplexURL(url);
+                QueryBuilder.ComplexUrlData(url, "captcha");
             }
-            else if(click != null){
-                QueryBuilder.ComplexUrlData(url, "click");
+            else if(click != null && !nbclick.isEmpty()){
+                QueryBuilder.ComplexUrlClick(url, "click", nbclick);
             }
-            else if(daterange != null){
-                QueryBuilder.ComplexUrlData(url, "daterange");
+            else if(daterange != null && !startdate.isEmpty() && !enddate.isEmpty()){
+                QueryBuilder.ComplexUrlDateRange(url, "daterange", startdate, enddate);
             }
-            else if(datemax != null){
-                QueryBuilder.ComplexUrlData(url, "datemax");
+            else if(datemax != null && !maxdate.isEmpty()){
+                QueryBuilder.ComplexUrlDateMax(url, "datemax", maxdate);
             }
             else{
                 QueryBuilder.addURL(url);
