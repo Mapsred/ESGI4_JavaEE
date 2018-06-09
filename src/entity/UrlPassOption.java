@@ -76,7 +76,7 @@ public class UrlPassOption {
     }
 
     public boolean isMaxClick(int clickNb) {
-        return clickNb >= this.getMaxClick();
+        return clickNb < this.getMaxClick();
     }
 
 }

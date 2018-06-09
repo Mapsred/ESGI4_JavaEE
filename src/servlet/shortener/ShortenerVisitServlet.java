@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "ShortenerVisitServlet", urlPatterns = Routes.SHORTENER_VISIT)
 public class ShortenerVisitServlet extends HttpServlet {
@@ -78,7 +80,11 @@ public class ShortenerVisitServlet extends HttpServlet {
 
         QueryBuilder.addUrlStat(url.getId(), Manager.getClientIpAddr(request));
 
-        response.sendRedirect(url.getBaseUrl());
+        Pattern pattern = Pattern.compile("https?://");
+        Matcher m = pattern.matcher(url.getBaseUrl());
+        String redirectingUrl = m.find() ? url.getBaseUrl() : "http://" + url.getBaseUrl();
+
+        response.sendRedirect(redirectingUrl);
     }
 
     private String getShortenedUrl(HttpServletRequest request) {

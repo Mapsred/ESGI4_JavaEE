@@ -455,6 +455,7 @@ public class QueryBuilder {
     private static int count(PreparedStatement query) {
         try {
             ResultSet resultSet = query.executeQuery();
+            resultSet.first();
 
             return resultSet.getInt(1);
         } catch (SQLException e) {
