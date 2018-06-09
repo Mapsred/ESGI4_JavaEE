@@ -80,22 +80,67 @@ public class ShortenerVisitServlet extends HttpServlet {
 
         QueryBuilder.addUrlStat(url.getId(), Manager.getClientIpAddr(request));
 
-        Pattern pattern = Pattern.compile("https?://");
-        Matcher m = pattern.matcher(url.getBaseUrl());
-        String redirectingUrl = m.find() ? url.getBaseUrl() : "http://" + url.getBaseUrl();
+        this.redirect(url, response);
+    }
 
-        response.sendRedirect(redirectingUrl);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("doPost ShortenerVisitServlet");
+        String short_url = getShortenedUrl(request);
+
+        if (!QueryBuilder.isUrlExisting(short_url)) {
+            this.invalid(request, response, "URL n'existe pas");
+
+            return;
+        }
+
+        Url url = Objects.requireNonNull(QueryBuilder.findUrl(short_url));
+        if (url.isExpired()) {
+            this.invalid(request, response);
+
+            return;
+        }
+
+        if (QueryBuilder.isPasswordProtected(url.getId())) {
+            System.out.println("HasPassword");
+
+            String password = Objects.requireNonNull(QueryBuilder.getPassword(url.getId()));
+            if (this.isPasswordInvalid(request, response, password)) {
+                return;
+            }
+
+            this.redirect(url, response);
+        }
+
+        if (QueryBuilder.isComplexUrl(url.getId())) {
+            ComplexUrl complexUrl = Objects.requireNonNull(QueryBuilder.getComplexUrl(url.getId()));
+            if (QueryBuilder.isUrlPassOption(complexUrl.getId())) {
+                UrlPassOption urlPassOption = Objects.requireNonNull(QueryBuilder.getUrlPassOptions(complexUrl.getId()));
+
+                if (urlPassOption.getLibelle().equals("password")) {
+                    String password = Objects.requireNonNull(QueryBuilder.getPassword(url.getId()));
+                    if (this.isPasswordInvalid(request, response, password)) {
+                        return;
+                    }
+
+                    this.redirect(url, response);
+                }
+
+                if (urlPassOption.getLibelle().equals("captcha")) {
+                    //TODO HANDLE CAPTCHA POST
+
+                    return;
+                }
+            }
+        }
+
+        this.redirect(url, response);
     }
 
     private String getShortenedUrl(HttpServletRequest request) {
         String[] splitted = request.getRequestURL().toString().split("/");
 
         return splitted[splitted.length - 1];
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     private void invalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -105,6 +150,25 @@ public class ShortenerVisitServlet extends HttpServlet {
     private void invalid(HttpServletRequest request, HttpServletResponse response, String message) throws IOException {
         request.getSession().setAttribute("flash_danger", message);
         response.sendRedirect("/");
+    }
+
+    private void redirect(Url url, HttpServletResponse response) throws IOException {
+        Pattern pattern = Pattern.compile("https?://");
+        Matcher m = pattern.matcher(url.getBaseUrl());
+        String redirectingUrl = m.find() ? url.getBaseUrl() : "http://" + url.getBaseUrl();
+
+        response.sendRedirect(redirectingUrl);
+    }
+
+    private boolean isPasswordInvalid(HttpServletRequest request, HttpServletResponse response, String password) throws ServletException, IOException {
+        if (!password.equals(request.getAttribute("password"))) {
+            request.getSession().setAttribute("flash_danger", "Mot de passe invalide");
+            this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
+
+            return true;
+        }
+
+        return false;
     }
 
 
