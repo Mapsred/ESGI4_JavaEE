@@ -161,9 +161,9 @@ public class ShortenerVisitServlet extends HttpServlet {
     }
 
     private boolean isPasswordInvalid(HttpServletRequest request, HttpServletResponse response, String password) throws ServletException, IOException {
-        if (!password.equals(request.getAttribute("password"))) {
+        if (!password.equals(request.getParameter("password"))) {
             request.getSession().setAttribute("flash_danger", "Mot de passe invalide");
-            this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
+            response.sendRedirect(request.getRequestURL().toString());
 
             return true;
         }
