@@ -73,13 +73,13 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateDebutBlock">
-                                    <input class="mdl-textfield__input" type="startdate" name="startdate" id="startdate">
-                                    <label class="mdl-textfield__label" for="startdate">Date debut</label>
+                                    <input class="mdl-textfield__input" type="date" name="startdate" id="startdate">
+                                    <label class="mdl-textfield__label" for="startdate"></label>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateFinBlock">
-                                    <input class="mdl-textfield__input" type="enddate" name="enddate" id="enddate">
-                                    <label class="mdl-textfield__label" for="enddate">Date fin</label>
+                                    <input class="mdl-textfield__input" type="date" name="enddate" id="enddate">
+                                    <label class="mdl-textfield__label" for="enddate"></label>
                                 </div>
 
                                 <!-- DATE MAX -->
@@ -91,8 +91,8 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                      style="display: none" id="dateMaxBlock">
-                                    <input class="mdl-textfield__input" type="maxdate" name="maxdate" id="maxdate">
-                                    <label class="mdl-textfield__label" for="maxdate">Date max</label>
+                                    <input class="mdl-textfield__input" type="date" name="maxdate" id="maxdate">
+                                    <label class="mdl-textfield__label" for="maxdate"></label>
                                 </div>
 
 
