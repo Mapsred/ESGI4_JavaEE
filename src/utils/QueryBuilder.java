@@ -36,6 +36,21 @@ public class QueryBuilder {
         return QueryBuilder.isEntryExisting(SELECT, email);
     }
 
+    public static ResultSet getIdUser(String email, String password) {
+        try {
+            String SELECT = "SELECT id FROM `users` WHERE email = ? AND password = ?";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+
+            query.setString(1, email);
+            query.setString(2, password);
+
+            return QueryBuilder.findOne(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void handleUser(User user) {
         try {
             String INSERT = "INSERT INTO `user` (`email`, `password`, `pro_status`, `enabled`) VALUES (?, ?)";
@@ -53,6 +68,19 @@ public class QueryBuilder {
     public static ResultSet getLastURLResultSet() {
         try {
             String SELECT = "SELECT * FROM `simple_url` ORDER BY `id` DESC";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+
+            return QueryBuilder.findOne(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static ResultSet getLastComplexURLResultSet() {
+        try {
+            String SELECT = "SELECT * FROM `complex_url` ORDER BY `id` DESC";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
 
             return QueryBuilder.findOne(query);
@@ -103,6 +131,101 @@ public class QueryBuilder {
 
     }
 
+    public static void addComplexURL(String url, Integer idUser) {
+        try {
+
+            QueryBuilder.addURL(url);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `complex_url` (`id`, `simple_id`, `user_id`) VALUES (NULL, ?, ?)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setInt(2, idUser);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlData(String url, Integer idUser, String complexUrl) {
+        try {
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlDateRange(String url, Integer idUser, String complexUrl, String startdate, String enddate) {
+        try {
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, ?, ?, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, enddate);
+            query.setString(4, startdate);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlDateMax(String url, Integer idUser, String complexUrl, String maxdate) {
+        try {
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.setTime(new Date());
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, ?, ?, NULL)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, format.format(calendar.getTime()));
+            query.setString(4, maxdate);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ComplexUrlClick(String url, Integer idUser, String complexUrl, String maxclick) {
+        try {
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
+
+            String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, ?)";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
+            query.setInt(1, lastURL);
+            query.setString(2, complexUrl);
+            query.setString(3, maxclick);
+            query.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static boolean isUrlExisting(String short_url) {
         String SELECT = "SELECT * FROM `simple_url` WHERE new_url = ?";
@@ -185,6 +308,15 @@ public class QueryBuilder {
         return null;
     }
 
+    public static int countComplexUrl(String user_email) {
+        String SELECT = "SELECT COUNT(*) FROM `complex_url`" +
+                "LEFT JOIN users ON complex_url.user_id = users.id " +
+                "WHERE users.email = ?";
+
+
+        return QueryBuilder.count(SELECT, user_email);
+    }
+
 
     public static boolean isUrlPassOption(int url_complex_id) {
         String SELECT = "SELECT * FROM `url_pass_option` WHERE url_complex_id = ?";
@@ -228,22 +360,15 @@ public class QueryBuilder {
     }
 
 
-    public static ResultSet getUrlStatClick(int url_id) {
+    public static int getUrlStatClick(int url_id) {
         String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ?";
-        try {
-            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
-            query.setInt(1, url_id);
 
-            return query.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return QueryBuilder.count(SELECT, url_id);
     }
 
-    public static int getUrlStatClickMax15(int url_id) {
-        String SELECT = "SELECT COUNT(*) FROM url_stat WHERE url_id = ? AND date > ?";
+    public static ResultSet getUrlStatClickMaxOf15(int url_id) {
+        String SELECT = "SELECT DATE_FORMAT(date, '%Y-%m-%d') date_formated, COUNT(*) nb " +
+                "FROM url_stat WHERE url_id = ? AND date > ? GROUP BY date_formated";
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -255,14 +380,12 @@ public class QueryBuilder {
             query.setInt(1, url_id);
             query.setString(2, format.format(calendar.getTime()));
 
-            ResultSet resultSet = query.executeQuery();
-
-            return resultSet.getInt(1);
+            return query.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return 0;
+        return null;
     }
 
 
@@ -300,5 +423,45 @@ public class QueryBuilder {
         resultSet.first();
 
         return resultSet;
+    }
+
+
+    private static int count(String SELECT, int parameter) {
+        try {
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setInt(1, parameter);
+
+            return QueryBuilder.count(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    private static int count(String SELECT, String parameter) {
+        try {
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(SELECT);
+            query.setString(1, parameter);
+
+            return QueryBuilder.count(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    private static int count(PreparedStatement query) {
+        try {
+            ResultSet resultSet = query.executeQuery();
+            resultSet.first();
+
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
