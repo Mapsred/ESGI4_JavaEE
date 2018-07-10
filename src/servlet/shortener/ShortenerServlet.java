@@ -79,7 +79,7 @@ public class ShortenerServlet extends HttpServlet {
 
             try {
                 ResultSet lastURL = QueryBuilder.getLastURLResultSet();
-                String short_url = Objects.requireNonNull(lastURL).getString(2);
+                String short_url = Objects.requireNonNull(lastURL).getString(3);
                 if (!password.isEmpty()) {
                     short_url += "?password=" + password;
                 }

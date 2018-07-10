@@ -23,8 +23,8 @@
                     </div>
                     <div class="mdl-card__supporting-text">
                         <p>Vous essayez d'accéder à l'url suivante :
-                            <a href="<%= request.getRequestURL().toString() %>">
-                                <%= request.getRequestURL().toString() %>
+                            <a href="<%= request.getAttribute("url") %>">
+                                <%= request.getAttribute("url") %>
                             </a>
                         </p>
                         <% String password = (String) request.getAttribute("password"); %>
