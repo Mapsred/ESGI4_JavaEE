@@ -1,5 +1,6 @@
 package servlet.shortener;
 
+import utils.Manager;
 import utils.Routes;
 
 import javax.servlet.ServletException;
@@ -24,12 +25,16 @@ public class ShortenerResultServlet extends HttpServlet {
         }
 
         String[] parts = shortUrl.toString().split("\\?password=");
+        String shortUrlString = Manager.getCurrentUri(request) + "/shortener/visit/" + parts[0];
+        String fullUrlString = shortUrlString;
+
         if (parts.length > 1) {
             request.setAttribute("short_password", parts[1]);
+            fullUrlString += "?password=" + parts[1];
         }
 
-        request.setAttribute("short_url", parts[0]);
-        request.setAttribute("full_url", shortUrl.toString());
+        request.setAttribute("short_url", shortUrlString);
+        request.setAttribute("full_url", fullUrlString);
 
         this.getServletContext().getRequestDispatcher("/shortener/shortener_result.jsp").forward(request, response);
     }

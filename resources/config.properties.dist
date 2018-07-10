@@ -1,5 +1,5 @@
-hostname=localhost
-port=3306
-dbname=esgi-jee
-username=esgi
-password=
+hostname=127.0.0.1
+port=8159
+dbname=java-ee-final
+username=java-ee-final
+password=java-ee-final

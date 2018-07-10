@@ -14,12 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet(name = "ShortenerVisitServlet", urlPatterns = Routes.SHORTENER_VISIT)
 public class ShortenerVisitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet ShortenerVisitServlet");
         String short_url = getShortenedUrl(request);
+        request.setAttribute("url", Manager.getCurrentUrl(request));
 
         if (!QueryBuilder.isUrlExisting(short_url)) {
             this.invalid(request, response, "URL n'existe pas");
@@ -69,6 +72,11 @@ public class ShortenerVisitServlet extends HttpServlet {
                         request.setAttribute("password", QueryBuilder.getPassword(url.getId()));
                     }
 
+                    if (urlPassOption.getLibelle().equals("captcha")) {
+                        System.out.println("HasCaptcha");
+                        request.setAttribute("captcha", Manager.getCaptcha());
+                    }
+
                     this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
 
                     return;
@@ -78,18 +86,69 @@ public class ShortenerVisitServlet extends HttpServlet {
 
         QueryBuilder.addUrlStat(url.getId(), Manager.getClientIpAddr(request));
 
-        response.sendRedirect(url.getBaseUrl());
+        this.redirect(url, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("doPost ShortenerVisitServlet");
+        String short_url = getShortenedUrl(request);
+
+        if (!QueryBuilder.isUrlExisting(short_url)) {
+            this.invalid(request, response, "URL n'existe pas");
+
+            return;
+        }
+
+        Url url = Objects.requireNonNull(QueryBuilder.findUrl(short_url));
+        if (url.isExpired()) {
+            this.invalid(request, response);
+
+            return;
+        }
+
+        if (QueryBuilder.isPasswordProtected(url.getId())) {
+            System.out.println("HasPassword");
+
+            String password = Objects.requireNonNull(QueryBuilder.getPassword(url.getId()));
+            if (this.isPasswordInvalid(request, response, password)) {
+                return;
+            }
+
+            this.redirect(url, response);
+        }
+
+        if (QueryBuilder.isComplexUrl(url.getId())) {
+            ComplexUrl complexUrl = Objects.requireNonNull(QueryBuilder.getComplexUrl(url.getId()));
+            if (QueryBuilder.isUrlPassOption(complexUrl.getId())) {
+                UrlPassOption urlPassOption = Objects.requireNonNull(QueryBuilder.getUrlPassOptions(complexUrl.getId()));
+
+                if (urlPassOption.getLibelle().equals("password")) {
+                    String password = Objects.requireNonNull(QueryBuilder.getPassword(url.getId()));
+                    if (this.isPasswordInvalid(request, response, password)) {
+                        return;
+                    }
+
+                    this.redirect(url, response);
+                }
+
+                if (urlPassOption.getLibelle().equals("captcha")) {
+                    if (this.isCaptchaInvalid(request, response)) {
+                        return;
+                    }
+
+                    this.redirect(url, response);
+                }
+            }
+        }
+
+        this.redirect(url, response);
     }
 
     private String getShortenedUrl(HttpServletRequest request) {
         String[] splitted = request.getRequestURL().toString().split("/");
 
         return splitted[splitted.length - 1];
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     private void invalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -101,5 +160,33 @@ public class ShortenerVisitServlet extends HttpServlet {
         response.sendRedirect("/");
     }
 
+    private void redirect(Url url, HttpServletResponse response) throws IOException {
+        Pattern pattern = Pattern.compile("https?://");
+        Matcher m = pattern.matcher(url.getBaseUrl());
+        String redirectingUrl = m.find() ? url.getBaseUrl() : "http://" + url.getBaseUrl();
 
+        response.sendRedirect(redirectingUrl);
+    }
+
+    private boolean isPasswordInvalid(HttpServletRequest request, HttpServletResponse response, String password) throws IOException {
+        if (!password.equals(request.getParameter("password"))) {
+            request.getSession().setAttribute("flash_danger", "Mot de passe invalide");
+            response.sendRedirect(request.getRequestURL().toString());
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isCaptchaInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!Manager.getCaptcha().equals(request.getParameter("captcha"))) {
+            request.getSession().setAttribute("flash_danger", "Captcha invalide");
+            response.sendRedirect(request.getRequestURL().toString());
+
+            return true;
+        }
+
+        return false;
+    }
 }

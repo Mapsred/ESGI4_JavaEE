@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class QueryBuilder {
     public static boolean isUserValid(String email, String password) {
@@ -96,8 +97,10 @@ public class QueryBuilder {
             String INSERT = "INSERT INTO `simple_url` (`base_url`, `new_url`, `created_at`, `deleted_at`) VALUES (?, ?, ?, ?)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
 
+            UUID uuid = UUID.randomUUID();
+
             query.setString(1, url);
-            query.setString(2, url); //TODO CREATE NEW URL
+            query.setString(2, uuid.toString());
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -455,6 +458,7 @@ public class QueryBuilder {
     private static int count(PreparedStatement query) {
         try {
             ResultSet resultSet = query.executeQuery();
+            resultSet.first();
 
             return resultSet.getInt(1);
         } catch (SQLException e) {

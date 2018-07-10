@@ -3,6 +3,10 @@ package utils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Manager {
     /**
@@ -71,4 +75,39 @@ public class Manager {
         return ip;
     }
 
+    public static String getCurrentUrl(HttpServletRequest request) {
+        try {
+            URL url = new URL(request.getRequestURL().toString());
+
+            return url.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String getCurrentUri(HttpServletRequest request) {
+        try {
+            URL url = new URL(request.getRequestURL().toString());
+            String host = url.getHost();
+            String userInfo = url.getUserInfo();
+            String scheme = url.getProtocol();
+            int port = url.getPort();
+            String path = (String) request.getAttribute("javax.servlet.forward.request_uri");
+            String query = (String) request.getAttribute("javax.servlet.forward.query_string");
+
+            URI uri = new URI(scheme, userInfo, host, port, path, query, null);
+
+            return uri.toString();
+        } catch (MalformedURLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static String getCaptcha() {
+        return "kamal";
+    }
 }
