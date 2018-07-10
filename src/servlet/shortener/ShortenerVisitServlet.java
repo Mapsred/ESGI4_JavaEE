@@ -22,6 +22,7 @@ public class ShortenerVisitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet ShortenerVisitServlet");
         String short_url = getShortenedUrl(request);
+        request.setAttribute("url", Manager.getCurrentUrl(request));
 
         if (!QueryBuilder.isUrlExisting(short_url)) {
             this.invalid(request, response, "URL n'existe pas");
@@ -69,6 +70,11 @@ public class ShortenerVisitServlet extends HttpServlet {
                     if (urlPassOption.getLibelle().equals("password")) {
                         System.out.println("HasPassword");
                         request.setAttribute("password", QueryBuilder.getPassword(url.getId()));
+                    }
+
+                    if (urlPassOption.getLibelle().equals("captcha")) {
+                        System.out.println("HasCaptcha");
+                        request.setAttribute("captcha", Manager.getCaptcha());
                     }
 
                     this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
@@ -127,9 +133,11 @@ public class ShortenerVisitServlet extends HttpServlet {
                 }
 
                 if (urlPassOption.getLibelle().equals("captcha")) {
-                    //TODO HANDLE CAPTCHA POST
+                    if (this.isCaptchaInvalid(request, response)) {
+                        return;
+                    }
 
-                    return;
+                    this.redirect(url, response);
                 }
             }
         }
@@ -160,7 +168,7 @@ public class ShortenerVisitServlet extends HttpServlet {
         response.sendRedirect(redirectingUrl);
     }
 
-    private boolean isPasswordInvalid(HttpServletRequest request, HttpServletResponse response, String password) throws ServletException, IOException {
+    private boolean isPasswordInvalid(HttpServletRequest request, HttpServletResponse response, String password) throws IOException {
         if (!password.equals(request.getParameter("password"))) {
             request.getSession().setAttribute("flash_danger", "Mot de passe invalide");
             response.sendRedirect(request.getRequestURL().toString());
@@ -171,5 +179,14 @@ public class ShortenerVisitServlet extends HttpServlet {
         return false;
     }
 
+    private boolean isCaptchaInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!Manager.getCaptcha().equals(request.getParameter("captcha"))) {
+            request.getSession().setAttribute("flash_danger", "Captcha invalide");
+            response.sendRedirect(request.getRequestURL().toString());
 
+            return true;
+        }
+
+        return false;
+    }
 }

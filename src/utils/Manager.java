@@ -107,5 +107,7 @@ public class Manager {
         return null;
     }
 
-
+    public static String getCaptcha() {
+        return "kamal";
+    }
 }

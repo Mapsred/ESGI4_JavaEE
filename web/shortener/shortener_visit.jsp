@@ -43,8 +43,26 @@
                                 </button>
                             </div>
                         </form>
-
                         <%} %>
+
+                        <% String captcha = (String) request.getAttribute("captcha"); %>
+                        <% if (captcha != null) { %>
+                        <p>Cependant elle est protégée par le captcha suivant : "kamal", veuillez le rentrer ci-dessous :</p>
+                        <form method="post">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                                <input class="mdl-textfield__input" type="text" id="captcha" name="captcha"/>
+                                <label class="mdl-textfield__label" for="captcha">Captcha</label>
+                            </div>
+
+                            <div class="m-t-20">
+                                <button type="submit"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--light-blue">
+                                    Envoyer
+                                </button>
+                            </div>
+                        </form>
+                        <%} %>
+
                     </div>
                 </div>
 
