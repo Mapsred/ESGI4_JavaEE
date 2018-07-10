@@ -23,13 +23,18 @@
                         <h4 class="mdl-card__title-text">Breizhlink</h4>
                     </div>
                     <div class="mdl-card__actions">
+
                         <h4>5 bonnes raisons de devenir partenaire Breizhlink</h4>
 
-                        <p>1. Associez-vous à l'acteur incontournable du marché de l'infrastructure et construisez pour vos clients, des solutions allant du réseau d'entreprise au cœur de leur IT.</p>
+                        <p>1. Associez-vous à l'acteur incontournable du marché de l'utilitaire, une solution quotidienne au cœur de leur IT.</p>
                         <p>2. Gagnez des prospects en étant référencé sur l'annuaire en ligne des partenaires Breizhlink.</p>
-                        <p>3. Renforcez votre crédibilité auprès de vos clients en passant les formations certifiantes Breizhlink.</p>
-                        <p>4. Souscrivez un pack commercial Web, Télécom ou Infra et revendez les produits Breizhlink correspondants en marque blanche ou en tant qu'intermédiaire.</p>
-                        <p>5. Via l'extranet Partenaire, bénéficiez d'un panel d'outils Marketing, kit de vente et recevez de l'information ciblée.</p>
+                        <p>3. Renforcez votre crédibilité auprès de vos clients en utilisant Breizhlink.</p>
+                        <p>4. Nous sommes prêts à créez de nouvelles solutions ou étendre les fonctionnalités pour nos partenaires.</p>
+                        <p>5. Bénéficier d'un contact privilégié avec les créateur de l'application : Mathieu François ou Evrard Axel.</p>
+                        <p>Retrouvez nos partenaire ci-dessous : </p>
+
+                        <img class="pub-ges" src="${pageContext.request.contextPath}/Resources/images/GES_logo.png">
+                        <!-- <img class="pub-kam" src="${pageContext.request.contextPath}/Resources/images/oncle-kam.png"> -->
 
                     </div>
                 </div>
