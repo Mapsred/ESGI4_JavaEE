@@ -24,7 +24,7 @@
                         <h3>1. Présentation du site.</h3>
                         <p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site <a href="http://www.breizhlink.com/">www.breizhlink.com</a> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi :</p>
                         <p><strong>Propriétaire</strong> : Mme SANS –  – ESGI<br />
-                            <strong>Créateur</strong>  : <a href="www.breizhlink.com">François Mathieu</a><br />
+                            <strong>Créateur</strong>  : <a href="https://github.com/Mapsred/">François Mathieu</a> & <a href="https://github.com/AxelE">Evrard Axel</a> <br />
                             <strong>Responsable publication</strong> : Mme. SANS – maps_red@yahoo.fr<br />
                             Le responsable publication est une personne physique ou une personne morale.<br />
                             <strong>Webmaster</strong> : Evrard Axel – axel91evrard@gmail.com<br />
@@ -41,7 +41,7 @@
                         <p>Mme SANS s’efforce de fournir sur le site <a href="http://www.breizhlink.com/">www.breizhlink.com</a> des informations aussi précises que possible. Toutefois, il ne pourra être tenue responsable des omissions, des inexactitudes et des carences dans la mise à jour, qu’elles soient de son fait ou du fait des tiers partenaires qui lui fournissent ces informations.</p>
                         <p>Tous les informations indiquées sur le site <a href="http://www.breizhlink.com/">www.breizhlink.com</a> sont données à titre indicatif, et sont susceptibles d’évoluer. Par ailleurs, les renseignements figurant sur le site <a href="http://www.breizhlink.com/">www.breizhlink.com</a> ne sont pas exhaustifs. Ils sont donnés sous réserve de modifications ayant été apportées depuis leur mise en ligne.</p>
                         <h3>4. Limitations contractuelles sur les données techniques.</h3>
-                        <p>Le site utilise la technologie JavaScript.</p>
+                        <p>Le site utilise la "technologie" J2E.</p>
                         <p>Le site Internet ne pourra être tenu responsable de dommages matériels liés à l’utilisation du site. De plus, l’utilisateur du site s’engage à accéder au site en utilisant un matériel récent, ne contenant pas de virus et avec un navigateur de dernière génération mis-à-jour</p>
                         <h3>5. Propriété intellectuelle et contrefaçons.</h3>
                         <p>Mme SANS est propriétaire des droits de propriété intellectuelle ou détient les droits d’usage sur tous les éléments accessibles sur le site, notamment les textes, images, graphismes, logo, icônes, sons, logiciels.</p>

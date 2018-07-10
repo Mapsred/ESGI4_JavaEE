@@ -23,7 +23,14 @@
                         <h4 class="mdl-card__title-text">Breizhlink</h4>
                     </div>
                     <div class="mdl-card__actions">
-                        Breizhlink est un projet conçu pour raccourcir vos liens...
+                        <p>Breizhlink est un projet conçu par <a href="https://github.com/Mapsred/">François Mathieu</a> & <a href="https://github.com/AxelE">Evrard Axel</a>
+                        Breizhlink permet de raccourcir vos liens. Fini les url avec plus de 50 caractères.
+                            Grâce à Breizhlink, vous pouvez envoyez vos liens en protégeant ceux-ci avec un <b>mot de passe</b>.
+                            En vous inscrivant sur Breizhlink, des options supplémentaires s'offrent à vous tel que :</p>
+                        <p>Avec un captcha</p>
+                        <p>Avec un nombre de redirection limité</p>
+                        <p>Valide jusqu'à une date précise</p>
+                        <p>Valide d'une date à une autre</p>
                     </div>
                 </div>
 
