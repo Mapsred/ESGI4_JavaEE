@@ -62,7 +62,7 @@ public class RegisterServlet extends HttpServlet {
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
-            Mail.send("axel91evrard@gmail.com", "Test Mail Java", "Coucou");
+            //Mail.send("axel91evrard@gmail.com", "Test Mail Java", "Coucou");
 
             response.sendRedirect("/");
 
@@ -77,8 +77,8 @@ public class RegisterServlet extends HttpServlet {
 
         public static void send(String emailTo, String emailObject, String emailMessage) {
 
-            final String username = "";
-            final String password = "";
+            final String username = "test";
+            final String password = "test";
 
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -94,7 +94,7 @@ public class RegisterServlet extends HttpServlet {
                     });
             try {
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(""));
+                message.setFrom(new InternetAddress("axel91evrard@gmail.com"));
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse(emailTo));
                 message.setSubject(emailObject);
