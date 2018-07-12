@@ -4,12 +4,17 @@ import entity.User;
 import utils.Routes;
 import utils.QueryBuilder;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Properties;
+
+import javax.mail.*;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = Routes.REGISTER)
 public class RegisterServlet extends HttpServlet {
@@ -57,6 +62,8 @@ public class RegisterServlet extends HttpServlet {
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
+            Mail.send("axel91evrard@gmail.com", "Test Mail Java", "Coucou");
+
             response.sendRedirect("/");
 
             return;
@@ -64,6 +71,41 @@ public class RegisterServlet extends HttpServlet {
 
         request.getSession().setAttribute("flash_danger", "Champs non remplis");
         response.sendRedirect(Routes.REGISTER);
+    }
+
+    public static class Mail {
+
+        public static void send(String emailTo, String emailObject, String emailMessage) {
+
+            final String username = "";
+            final String password = "";
+
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(""));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(emailTo));
+                message.setSubject(emailObject);
+                message.setText(emailMessage);
+                Transport.send(message);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
     }
 
 }
