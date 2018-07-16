@@ -1,5 +1,6 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="utils.Manager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,11 +39,12 @@
                             try {
                                 ResultSet visits = (ResultSet) request.getAttribute("links");
                                 while (visits.next()) {
+                                    String short_url = Manager.getCurrentUri(request) + "/shortener/visit/" + visits.getString(3);
                                     out.print("<tr>");
-                                    out.print("<td>" + visits.getString(2) + "</td>");
-                                    out.print("<td>" + visits.getString(3) + "</td>");
+                                    out.print("<td> <a href='" + visits.getString(2) + "'>" + visits.getString(2) + "</a></td>");
+                                    out.print("<td> <a href='" + short_url + "'>" + short_url + "</a></td>");
                                     out.print("<td>" + visits.getString(4) + "</td>");
-                                    out.print("<td><a href='/user/account/stats/"+visits.getString(1)+"'>Test</a></td>");
+                                    out.print("<td><a href='/user/account/stats/" + visits.getString(1) + "'>Statistiques</a></td>");
                                     out.print("</tr>");
                                 }
                             } catch (SQLException e) {
