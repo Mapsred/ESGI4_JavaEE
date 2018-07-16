@@ -290,6 +290,20 @@ public class QueryBuilder {
         return null;
     }
 
+    public static void setUserPassword(String email, String old_password, String password) {
+        try {
+            int idUser = Objects.requireNonNull(QueryBuilder.getIdUser(email, old_password)).getInt(1);
+            String UPDATE = "UPDATE `users` SET password = ? WHERE id = ?";
+            PreparedStatement query = ConfigHandler.getDatabase().prepare(UPDATE);
+            query.setString(1, password);
+            query.setInt(2, idUser);
+
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static boolean isComplexUrl(int url_id) {
         String SELECT = "SELECT * FROM `complex_url` WHERE simple_id = ?";
