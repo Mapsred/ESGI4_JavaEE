@@ -68,12 +68,8 @@
                                 <div class="m-t-20">
                                     <button type="submit"
                                             class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--light-blue">
-                                        Se connecter
-                                    </button>
-                                    <a href="${pageContext.request.contextPath}/register"
-                                       class="mdl-button mdl-js-button mdl-js-ripple-effect">
                                         S'inscrire
-                                    </a>
+                                    </button>
                                 </div>
 
                             </form>
