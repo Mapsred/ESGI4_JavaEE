@@ -97,8 +97,10 @@ public class QueryBuilder {
             String INSERT = "INSERT INTO `simple_url` (`base_url`, `new_url`, `created_at`, `deleted_at`) VALUES (?, ?, ?, ?)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
 
+            UUID uuid = UUID.randomUUID();
+
             query.setString(1, url);
-            query.setString(2, url); //TODO CREATE NEW URL
+            query.setString(2, uuid.toString());
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -132,15 +134,16 @@ public class QueryBuilder {
 
     }
 
-    public static void addComplexURL(String url) {
+    public static void addComplexURL(String url, Integer idUser) {
         try {
 
             QueryBuilder.addURL(url);
             int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
 
-            String INSERT = "INSERT INTO `complex_url` (`id`, `simple_id`, `user_id`) VALUES (NULL, ?, 1)";
+            String INSERT = "INSERT INTO `complex_url` (`id`, `simple_id`, `user_id`) VALUES (NULL, ?, ?)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
             query.setInt(1, lastURL);
+            query.setInt(2, idUser);
             query.executeUpdate();
 
         } catch (SQLException e) {
@@ -149,10 +152,10 @@ public class QueryBuilder {
 
     }
 
-    public static void ComplexUrlData(String url, String complexUrl) {
+    public static void ComplexUrlData(String url, Integer idUser, String complexUrl) {
         try {
-            QueryBuilder.addComplexURL(url);
-            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
 
             String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, NULL)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
@@ -166,17 +169,17 @@ public class QueryBuilder {
 
     }
 
-    public static void ComplexUrlDateRange(String url, String complexUrl, String startdate, String enddate) {
+    public static void ComplexUrlDateRange(String url, Integer idUser, String complexUrl, String startdate, String enddate) {
         try {
-            QueryBuilder.addComplexURL(url);
-            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
 
             String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, ?, ?, NULL)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
             query.setInt(1, lastURL);
             query.setString(2, complexUrl);
             query.setString(3, enddate);
-            query.setString(3, startdate);
+            query.setString(4, startdate);
             query.executeUpdate();
 
         } catch (SQLException e) {
@@ -185,10 +188,10 @@ public class QueryBuilder {
 
     }
 
-    public static void ComplexUrlDateMax(String url, String complexUrl, String maxdate) {
+    public static void ComplexUrlDateMax(String url, Integer idUser, String complexUrl, String maxdate) {
         try {
-            QueryBuilder.addComplexURL(url);
-            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar calendar = Calendar.getInstance();
@@ -209,10 +212,10 @@ public class QueryBuilder {
 
     }
 
-    public static void ComplexUrlClick(String url, String complexUrl, String maxclick) {
+    public static void ComplexUrlClick(String url, Integer idUser, String complexUrl, String maxclick) {
         try {
-            QueryBuilder.addComplexURL(url);
-            int lastURL = Objects.requireNonNull(QueryBuilder.getLastURLResultSet()).getInt(1);
+            QueryBuilder.addComplexURL(url, idUser);
+            int lastURL = Objects.requireNonNull(QueryBuilder.getLastComplexURLResultSet()).getInt(1);
 
             String INSERT = "INSERT INTO `url_pass_option` (`url_complex_id`, `libelle`, `end_date`, `start_date`, `max_click`) VALUES (?, ?, NULL, NULL, ?)";
             PreparedStatement query = ConfigHandler.getDatabase().prepare(INSERT);
@@ -226,6 +229,7 @@ public class QueryBuilder {
         }
 
     }
+
 
     public static boolean isUrlExisting(String short_url) {
         String SELECT = "SELECT * FROM `simple_url` WHERE new_url = ?";

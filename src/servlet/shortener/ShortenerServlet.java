@@ -32,37 +32,55 @@ public class ShortenerServlet extends HttpServlet {
             String secured = request.getParameter("secured");
             String password = request.getParameter("password");
 
-            String captcha = request.getParameter("captcha");
-            String click = request.getParameter("click");
-            String nbclick = request.getParameter("nbclick");
-            String daterange = request.getParameter("daterange");
-            String startdate = request.getParameter("startdate");
-            String enddate = request.getParameter("enddate");
-            String datemax = request.getParameter("datemax");
-            String maxdate = request.getParameter("maxdate");
 
-            if (secured != null && !password.isEmpty()) {
-                QueryBuilder.addURL(url, password);
-            }
-            else if(captcha != null){
-                QueryBuilder.ComplexUrlData(url, "captcha");
-            }
-            else if(click != null && !nbclick.isEmpty()){
-                QueryBuilder.ComplexUrlClick(url, "click", nbclick);
-            }
-            else if(daterange != null && !startdate.isEmpty() && !enddate.isEmpty()){
-                QueryBuilder.ComplexUrlDateRange(url, "daterange", startdate, enddate);
-            }
-            else if(datemax != null && !maxdate.isEmpty()){
-                QueryBuilder.ComplexUrlDateMax(url, "datemax", maxdate);
+            if (Manager.isUserValid(request, response)) {
+
+                String captcha = request.getParameter("captcha");
+                String click = request.getParameter("click");
+                String nbclick = request.getParameter("nbclick");
+                String daterange = request.getParameter("daterange");
+                String startdate = request.getParameter("startdate");
+                String enddate = request.getParameter("enddate");
+                String datemax = request.getParameter("datemax");
+                String maxdate = request.getParameter("maxdate");
+
+                String emailUser = String.valueOf(request.getSession().getAttribute("email"));
+                String passwordUser = String.valueOf(request.getSession().getAttribute("password"));
+
+
+                Integer idUser = null;
+                try {
+                    idUser = Objects.requireNonNull(QueryBuilder.getIdUser(emailUser, passwordUser)).getInt(1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                if (secured != null && !password.isEmpty()) {
+                    QueryBuilder.addURL(url, password);
+                } else if (captcha != null) {
+                    QueryBuilder.ComplexUrlData(url, idUser, "captcha");
+                } else if (click != null && !nbclick.isEmpty()) {
+                    QueryBuilder.ComplexUrlClick(url, idUser, "click", nbclick);
+                } else if (daterange != null && !startdate.isEmpty() && !enddate.isEmpty()) {
+                    QueryBuilder.ComplexUrlDateRange(url, idUser, "daterange", startdate, enddate);
+                } else if (datemax != null && !maxdate.isEmpty()) {
+                    QueryBuilder.ComplexUrlDateMax(url, idUser, "datemax", maxdate);
+                } else {
+                    QueryBuilder.addURL(url);
+                }
             }
             else{
-                QueryBuilder.addURL(url);
+
+                if (secured != null && !password.isEmpty()) {
+                    QueryBuilder.addURL(url, password);
+                } else {
+                    QueryBuilder.addURL(url);
+                }
             }
 
             try {
                 ResultSet lastURL = QueryBuilder.getLastURLResultSet();
-                String short_url = Objects.requireNonNull(lastURL).getString(2);
+                String short_url = Objects.requireNonNull(lastURL).getString(3);
                 if (!password.isEmpty()) {
                     short_url += "?password=" + password;
                 }
