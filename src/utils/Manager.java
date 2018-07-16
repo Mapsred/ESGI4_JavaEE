@@ -107,6 +107,22 @@ public class Manager {
         return null;
     }
 
+    public static String getCurrentBaseUrl(HttpServletRequest request) {
+        try {
+            URL url = new URL(request.getRequestURL().toString());
+            String host = url.getHost();
+            String userInfo = url.getUserInfo();
+            String scheme = url.getProtocol();
+            int port = url.getPort();
+            URI uri = new URI(scheme, userInfo, host, port, null, null, null);
+
+            return uri.toString();
+        } catch (MalformedURLException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getCaptcha() {
         return "kamal";
     }

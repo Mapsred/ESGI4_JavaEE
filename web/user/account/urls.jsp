@@ -39,7 +39,7 @@
                             try {
                                 ResultSet visits = (ResultSet) request.getAttribute("links");
                                 while (visits.next()) {
-                                    String short_url = Manager.getCurrentUri(request) + "/shortener/visit/" + visits.getString(3);
+                                    String short_url = Manager.getCurrentBaseUrl(request) + "/shortener/visit/" + visits.getString(3);
                                     out.print("<tr>");
                                     out.print("<td> <a href='" + visits.getString(2) + "'>" + visits.getString(2) + "</a></td>");
                                     out.print("<td> <a href='" + short_url + "'>" + short_url + "</a></td>");
