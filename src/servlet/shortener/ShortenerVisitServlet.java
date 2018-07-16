@@ -76,14 +76,11 @@ public class ShortenerVisitServlet extends HttpServlet {
                         System.out.println("HasCaptcha");
                         request.setAttribute("captcha", Manager.getCaptcha());
                     }
-
                     this.getServletContext().getRequestDispatcher("/shortener/shortener_visit.jsp").forward(request, response);
-
                     return;
                 }
             }
         }
-
         QueryBuilder.addUrlStat(url.getId(), Manager.getClientIpAddr(request));
 
         this.redirect(url, response);

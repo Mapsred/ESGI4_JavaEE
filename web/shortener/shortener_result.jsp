@@ -31,7 +31,7 @@
                                 Votre URL est protégée par le mot de passe suivant :
                                 <%= request.getAttribute("short_password") %>
                             </p>
-                            <p>Si vous le souhaiez, vous pouvez partager le mot de passe en même temps que le lien : </p>
+                            <p>Vous pouvez partager le mot de passe en même temps que le lien : </p>
                             <p>
                                 <a href="<%= request.getAttribute("full_url") %>">
                                     <%= request.getAttribute("full_url") %>
