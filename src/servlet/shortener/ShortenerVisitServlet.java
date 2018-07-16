@@ -87,7 +87,7 @@ public class ShortenerVisitServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("doPost ShortenerVisitServlet");
         String short_url = getShortenedUrl(request);
 
@@ -113,6 +113,8 @@ public class ShortenerVisitServlet extends HttpServlet {
             }
 
             this.redirect(url, response);
+
+            return;
         }
 
         if (QueryBuilder.isComplexUrl(url.getId())) {
@@ -127,6 +129,8 @@ public class ShortenerVisitServlet extends HttpServlet {
                     }
 
                     this.redirect(url, response);
+
+                    return;
                 }
 
                 if (urlPassOption.getLibelle().equals("captcha")) {
@@ -135,6 +139,8 @@ public class ShortenerVisitServlet extends HttpServlet {
                     }
 
                     this.redirect(url, response);
+
+                    return;
                 }
             }
         }

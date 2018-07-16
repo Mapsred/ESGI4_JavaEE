@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.14, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: java-ee-final
 -- ------------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE `complex_url` (
   KEY `complex_url_ibfk_1` (`simple_id`),
   CONSTRAINT `complex_url_ibfk_1` FOREIGN KEY (`simple_id`) REFERENCES `simple_url` (`id`),
   CONSTRAINT `complex_url_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `complex_url` (
 
 LOCK TABLES `complex_url` WRITE;
 /*!40000 ALTER TABLE `complex_url` DISABLE KEYS */;
-INSERT INTO `complex_url` VALUES (1,8,1),(2,7,1),(3,10,1),(4,11,1),(5,12,1),(6,13,1),(7,18,1),(8,19,1);
+INSERT INTO `complex_url` VALUES (1,1,1);
 /*!40000 ALTER TABLE `complex_url` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `password` (
 
 LOCK TABLES `password` WRITE;
 /*!40000 ALTER TABLE `password` DISABLE KEYS */;
-INSERT INTO `password` VALUES (2,'mdr'),(3,'mdr'),(4,'mdr'),(5,'mdr'),(6,'kamal123'),(7,'kamal123'),(8,'tt'),(9,'kamal123'),(14,'kamal123'),(15,'kamal123');
+INSERT INTO `password` VALUES (2,'kamal123');
 /*!40000 ALTER TABLE `password` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `simple_url` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `simple_url` (
 
 LOCK TABLES `simple_url` WRITE;
 /*!40000 ALTER TABLE `simple_url` DISABLE KEYS */;
-INSERT INTO `simple_url` VALUES (1,'https://google.fr','https://google.fr','2018-05-05 00:00:00','2018-11-05 00:00:00'),(2,'https://github.com/Mapsred?tab=repositories','https://github.com/Mapsred?tab=repositories','2018-05-05 00:00:00','2018-11-05 00:00:00'),(3,'https://github.com/Mapsred?tab=repositories','https://github.com/Mapsred?tab=repositories','2018-05-05 00:00:00','2018-11-05 00:00:00'),(4,'https://github.com/Mapsred?tab=repositories','https://github.com/Mapsred?tab=repositories','2018-05-05 00:00:00','2018-11-05 00:00:00'),(5,'https://github.com/Mapsred?tab=repositories','https://github.com/Mapsred?tab=repositories','2018-05-05 00:00:00','2018-11-05 00:00:00'),(6,'https://github.com/Mapsred?tab=repositories','https://github.com/Mapsred?tab=repositories','2018-05-05 00:00:00','2018-11-05 00:00:00'),(7,'https://www.myges.fr/common/project-group-creation/2810','https://www.myges.fr/common/project-group-creation/2810','2018-05-05 00:00:00','2018-11-05 00:00:00'),(8,'https://github.com/Mapsred?tab=repositories\n','tt','2018-05-22 00:00:00','2018-11-22 00:00:00'),(9,'TestWithMDP','TestWithMDP','2018-06-09 00:00:00','2018-12-09 00:00:00'),(10,'TestWithCaptcha','TestWithCaptcha','2018-06-09 00:00:00','2018-12-09 00:00:00'),(11,'TestWithMaxClick','TestWithMaxClick','2018-06-09 00:00:00','2018-12-09 00:00:00'),(12,'TestDateRange','TestDateRange','2018-06-09 00:00:00','2018-12-09 00:00:00'),(13,'TestDateMax','TestDateMax','2018-06-09 00:00:00','2018-12-09 00:00:00'),(14,'test@gmail.com','59d24e0e-2200-4865-9a1a-750e89a37a84','2018-07-03 00:00:00','2019-01-03 00:00:00'),(15,'test@gmail.com','4','2018-07-03 00:00:00','2019-01-03 00:00:00'),(16,'test@gmail.com','2','2018-07-03 00:00:00','2019-01-03 00:00:00'),(17,'test@gmail.com','2','2018-07-03 00:00:00','2019-01-03 00:00:00'),(18,'toto.com','6907c0ff-79c3-435c-8a49-55d03d3672a2','2018-07-10 00:00:00','2019-01-10 00:00:00'),(19,'tata.com','f5d83825-0692-4c40-8d79-c104e7b551d4','2018-07-10 00:00:00','2019-01-10 00:00:00');
+INSERT INTO `simple_url` VALUES (1,'https://google.fr','63c4b0e8-21f1-4176-bfa1-9a5a5bb3b6ab','2018-07-16 00:00:00','2019-01-16 00:00:00'),(2,'https://google.fr','620fe631-a7db-4a99-aaac-062f54810284','2018-07-16 00:00:00','2019-01-16 00:00:00');
 /*!40000 ALTER TABLE `simple_url` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +122,7 @@ CREATE TABLE `url_pass_option` (
 
 LOCK TABLES `url_pass_option` WRITE;
 /*!40000 ALTER TABLE `url_pass_option` DISABLE KEYS */;
-INSERT INTO `url_pass_option` VALUES (3,'captcha',NULL,NULL,NULL),(4,'click',NULL,NULL,100),(5,'daterange','2018-06-11','2018-06-09',NULL),(6,'datemax','2018-06-09','2018-06-30',NULL),(7,'captcha',NULL,NULL,NULL),(8,'captcha',NULL,NULL,NULL);
+INSERT INTO `url_pass_option` VALUES (1,'captcha',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `url_pass_option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-16  9:27:02
+-- Dump completed on 2018-07-16 22:34:17
